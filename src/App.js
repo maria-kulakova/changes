@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import FirstComponent from './FirstComponent';
+import {inject, observer} from 'mobx-react';
+import AgeStore from './stores/AgeStore';
 
+@inject('NameStore')
+@observer
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      name: 'Somebody'
-    }
-  }
-
-  changeName = (name) => {
-    this.setState({
-      name: name
-    });
-  }
-
   render() {
     return (
       <div className="App">
-        {this.state.name}
-        <FirstComponent changeName={this.changeName}/>
+        { this.props.NameStore.name }
+        <FirstComponent NameStore={ this.props.NameStore } AgeStore={AgeStore}/>
       </div>
     );
   }
